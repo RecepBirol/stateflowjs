@@ -1,0 +1,27 @@
+{
+  "name": "stateflowjs",
+  "version": "1.0.0",
+  "description": "a simple state machine mechanism to create work flow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RecepBirol/stateflowjs.git"
+  },
+  "keywords": [
+    "state",
+    "machine",
+    "machina",
+    "stateflow",
+    "work",
+    "flow"
+  ],
+  "author": "Recep Birol Gül",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RecepBirol/stateflowjs/issues"
+  },
+  "homepage": "https://github.com/RecepBirol/stateflowjs#readme"
+}
