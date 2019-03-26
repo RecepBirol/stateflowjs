@@ -1,16 +1,9 @@
-const { EventEmitter } = require('events');
+const EventEmitter = require('events');
 // enums
 const EVENTS = require('./EVENTS');
 const ERR_CODES = require('./ERR_CODES');
 
-class StateFlowEmitter extends EventEmitter {
-    constructor() {
-        super();
-    }
-}
-
-
-class StateFlow extends StateFlowEmitter {
+class StateFlow extends EventEmitter {
     constructor(options) {
         super();
         // maybe thrown an error! if name is null
@@ -69,12 +62,12 @@ class StateFlow extends StateFlowEmitter {
     }
 
     // start state machine
-    start(parent = null) {
+    start(parent = null, ...payload) {
         if (!this._isRunning && this._currentState === 'idle') {
             // set parent
             this._parent = parent;
             // transition to initial state
-            this.transition(this._intialstate);
+            this.transition(this._intialstate, payload);
             // set machine status
             this._isRunning = true;
 
@@ -111,7 +104,7 @@ class StateFlow extends StateFlowEmitter {
     // transition to another state
     transition(toState, ...payload) {
         // check is state exist 
-        if (this.states[toState] === undefined) {
+        if (this._states[toState] === undefined) {
             this.emit(EVENTS.ERROR, {
                 code: ERR_CODES.UNDEFINED_STATE,
                 prevState: this._currentState,
@@ -127,7 +120,7 @@ class StateFlow extends StateFlowEmitter {
         this._currentState = toState;
 
         const _onEnter = this._states[this._currentState].onEnter;
-        const _onExit = this._states[this._prevState].onExit;
+        const _onExit = this._prevState !== 'idle' ? this._states[this._prevState].onExit : null;
 
         if (_onExit && typeof _onExit === 'function') {
             _onExit();
