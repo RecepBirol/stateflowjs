@@ -83,12 +83,16 @@ class StateFlow extends StateFlowEmitter {
                 name: this._name,
                 parent: this._parent ? this._parent.name : null
             });
+            
+            return true;
         } else {
             // state already running, do nothing!
             this.emit(EVENTS.ALREADY_RUNNING, {
                 name: this._name,
                 parent: this._parent ? this._parent.name : null
             });
+
+            return false;
         }
     }
 
@@ -96,9 +100,12 @@ class StateFlow extends StateFlowEmitter {
     stop(parentAction, ...payload) {
         this.transition("idle");
         this._isRunning = false;
+        
         if(parentAction && this._parent) {
             _parent.handle(payload);
         }
+
+        return true;
     }
 
     // transition to another state
