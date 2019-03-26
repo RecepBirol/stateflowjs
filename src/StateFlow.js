@@ -1,4 +1,7 @@
 const { EventEmitter } = require('events');
+// enums
+const EVENTS = require('./EVENTS');
+const ERR_CODES = require('./ERR_CODES');
 
 class StateFlowEmitter extends EventEmitter {
     constructor() {
@@ -51,7 +54,7 @@ class StateFlow extends StateFlowEmitter {
         if (_action !== undefined) {
             _action.apply(this, payload);
 
-            this.emit("action_handled", {
+            this.emit(EVENTS.ACTION_HANDLED, {
                 name: this._name,
                 state: this._currentState,
                 action: action
@@ -76,13 +79,13 @@ class StateFlow extends StateFlowEmitter {
             this._isRunning = true;
 
             // fire start event 
-            this.emit("started", {
+            this.emit(EVENTS.STARTED, {
                 name: this._name,
                 parent: this._parent ? this._parent.name : null
             });
         } else {
             // state already running, do nothing!
-            this.emit("already_running", {
+            this.emit(EVENTS.ALREADY_RUNNING, {
                 name: this._name,
                 parent: this._parent ? this._parent.name : null
             });
@@ -90,16 +93,20 @@ class StateFlow extends StateFlowEmitter {
     }
 
     // stop state machine
-    stop() {
-
+    stop(parentAction, ...payload) {
+        this.transition("idle");
+        this._isRunning = false;
+        if(parentAction && this._parent) {
+            _parent.handle(payload);
+        }
     }
 
     // transition to another state
     transition(toState, ...payload) {
         // check is state exist 
         if (this.states[toState] === undefined) {
-            this.emit("error", {
-                code: "undefined_state",
+            this.emit(EVENTS.ERROR, {
+                code: ERR_CODES.UNDEFINED_STATE,
                 prevState: this._currentState,
                 nextState: this.toState,
                 name: this._name,
@@ -125,7 +132,7 @@ class StateFlow extends StateFlowEmitter {
         }
 
         // fire transition event
-        this.emit("transition", {
+        this.emit(EVENTS.TRANSITION, {
             prevState: this._prevState,
             nextState: this._currentState,
             name: this._name,
