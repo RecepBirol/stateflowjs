@@ -1,1 +1,1 @@
-require('./src/stateflow');
+require('./src/stateflow')

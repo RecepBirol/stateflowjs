@@ -1,3 +1,3 @@
 module.exports = {
-    UNDEFINED_STATE: "undefined_state"
-};
+  UNDEFINED_STATE: 'undefined_state'
+}
