@@ -4,7 +4,8 @@
   "description": "a simple state machine mechanism to create work flow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "standard-windows": "node .\\node_modules\\standard\\bin\\cmd.js --fix || exit 0"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/RecepBirol/stateflowjs/issues"
   },
-  "homepage": "https://github.com/RecepBirol/stateflowjs#readme"
+  "homepage": "https://github.com/RecepBirol/stateflowjs#readme",
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
 }
