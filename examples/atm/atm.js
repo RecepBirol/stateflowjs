@@ -37,14 +37,14 @@ const Atm = new StateFlow({
       },
       deposit: function (amount) {
         this.balance += amount
-        this.emit('result', { result: 'success', balance: this.balance })
+        this.emit('deposit', { result: 'success', balance: this.balance })
       },
       withdrawal: function (amount) {
         if (this.balance - amount > -1) {
           this.balance -= amount
-          this.emit('result', { result: 'success', balance: this.balance })
+          this.emit('withdrawal', { result: 'success', balance: this.balance })
         } else {
-          this.emit('result', { result: 'insufficient balance', balance: this.balance })
+          this.emit('withdrawal', { result: 'insufficient balance', balance: this.balance })
         }
       },
       deauthorize: function () {
@@ -54,7 +54,6 @@ const Atm = new StateFlow({
     }
   }
 })
-
 
 Atm.on('initialized', () => {
   console.log('Atm initialized')
@@ -67,6 +66,16 @@ Atm.on('unauthorized', (o) => {
 
 Atm.on('authorized', (o) => {
   console.log('Authorized acct: ' + o.acct)
+  Atm.handle('deposit', 5)
+})
+
+Atm.on('deposit', (result) => {
+  console.log(result)
+  Atm.handle('withdrawal', 15)
+})
+
+Atm.on('withdrawal', (result) => {
+  console.log(result)
 })
 
 Atm.start()
