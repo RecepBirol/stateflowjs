@@ -9,6 +9,10 @@ class StateFlow extends EventEmitter {
     // maybe thrown an error! if name is null
     this._name = options.name || 'unknown'
 
+    if (!options.states) {
+      throw new Error('states must be defined')
+    }
+
     this._states = {
       ...options.states
     }
