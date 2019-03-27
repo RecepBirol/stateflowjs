@@ -55,7 +55,6 @@ const Atm = new StateFlow({
   }
 })
 
-Atm.start()
 
 Atm.on('initialized', () => {
   console.log('Atm initialized')
@@ -70,8 +69,6 @@ Atm.on('authorized', (o) => {
   console.log('Authorized acct: ' + o.acct)
 })
 
-Atm.on('started', function () {
-  console.log('started')
-})
+Atm.start()
 
 module.exports = Atm
