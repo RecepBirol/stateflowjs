@@ -17,7 +17,9 @@
     "machina",
     "stateflow",
     "work",
-    "flow"
+    "flow",
+    "state machine",
+    "state manager"
   ],
   "author": "Recep Birol Gül",
   "license": "ISC",
