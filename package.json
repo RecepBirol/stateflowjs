@@ -1,6 +1,6 @@
 {
   "name": "stateflowjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a simple state machine mechanism to create work flow",
   "main": "index.js",
   "scripts": {
