@@ -96,7 +96,7 @@ class StateFlow extends EventEmitter {
     this._isRunning = false
 
     if (parentAction && this._parent) {
-      this._parent.handle(payload)
+      this._parent.handle(parentAction, payload)
     }
 
     return true
