@@ -12,6 +12,10 @@
     "url": "git+https://github.com/RecepBirol/stateflowjs.git"
   },
   "keywords": [
+    "statemachine",
+    "fsm",
+    "statemanager",
+    "workflow",
     "state",
     "machine",
     "machina",
